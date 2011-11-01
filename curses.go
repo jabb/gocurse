@@ -168,7 +168,7 @@ func (win *Window) Addch(x, y int, c int32, flags int32) {
 // Since CGO currently can't handle varg C functions we'll mimic the
 // ncurses addstr functions.
 func (win *Window) Addstr(x, y int, str string, flags int32, v ...interface{}) {
-	newstr := fmt.Sprintf(str, v);
+	newstr := fmt.Sprintf(str, v...);
 	
 	win.Move(x, y);
 	
