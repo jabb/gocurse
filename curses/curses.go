@@ -8,28 +8,27 @@ package curses
 import "C"
 
 import (
-	"fmt";
-	"os";
-	"unsafe";
-)
+	"fmt"
+	"os"
+    "unsafe"
+) 
 
-type void unsafe.Pointer;
-
-type Window C.WINDOW;
+type void unsafe.Pointer
+type Window C.WINDOW
 
 type CursesError struct {
-	message string;
+	message string
 }
 
 func (ce CursesError) String() string {
-	return ce.message;
+	return ce.message
 }
 
 // Cursor options.
 const (
-	CURS_HIDE = iota;
-	CURS_NORM;
-	CURS_HIGH;
+	CURS_HIDE = iota
+	CURS_NORM
+	CURS_HIGH
 )
 
 // Pointers to the values in curses, which may change values.
@@ -75,6 +74,13 @@ func Newwin(rows int, cols int, starty int, startx int) (*Window, os.Error) {
 	return nw, nil;
 }
 
+func (win *Window) Del() os.Error {
+	if int(C.delwin((*C.WINDOW)(win))) == 0 {
+		return CursesError{"delete failed"};
+	}
+	return nil
+}
+
 func (win *Window) Subwin(rows int, cols int, starty int, startx int) (*Window, os.Error)  {
 	sw := (*Window)(C.subwin((*C.WINDOW)(win), C.int(rows), C.int(cols), C.int(starty), C.int(startx)));
 
@@ -118,6 +124,13 @@ func Color_pair(pair int) int32 {
 func Noecho() os.Error {
 	if int(C.noecho()) == 0 {
 		return CursesError{"Noecho failed"};
+	}
+	return nil;
+}
+
+func DoUpdate() os.Error {
+		if int(C.doupdate()) == 0 {
+		return CursesError{"Doupdate failed"};
 	}
 	return nil;
 }
@@ -168,7 +181,12 @@ func (win *Window) Addch(x, y int, c int32, flags int32) {
 // Since CGO currently can't handle varg C functions we'll mimic the
 // ncurses addstr functions.
 func (win *Window) Addstr(x, y int, str string, flags int32, v ...interface{}) {
-	newstr := fmt.Sprintf(str, v);
+	var newstr string
+    if v != nil {
+        newstr = fmt.Sprintf(str, v);
+    } else {
+        newstr = str
+    }
 	
 	win.Move(x, y);
 	
@@ -181,6 +199,11 @@ func (win *Window) Addstr(x, y int, str string, flags int32, v ...interface{}) {
 func (win *Window) Move(x, y int) {
 	C.wmove((*C.WINDOW)(win), C.int(y), C.int(x));
 }
+
+func (win *Window) Resize(rows, cols int) {
+	C.wresize((*C.WINDOW)(win), C.int(rows), C.int(cols));
+}
+
 
 func (w *Window) Keypad(tf bool) os.Error {
 	var outint int;
