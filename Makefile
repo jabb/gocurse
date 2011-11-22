@@ -11,7 +11,7 @@ TARG=curses
 GOFILES=curses_defs.go
 CGOFILES=curses.go
 
-CGO_LDFLAGS=-lncurses
+CGO_LDFLAGS=-lncurses -ltinfo
 
 # To add flags necessary for locating the library or its include files,
 # set CGO_CFLAGS or CGO_LDFLAGS.  For example, to use an
