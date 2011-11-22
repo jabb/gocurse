@@ -2,7 +2,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-include $(GOROOT)/src/Make.$(GOARCH)
+include $(GOROOT)/src/Make.inc
 
 TARG=curses
 
@@ -11,7 +11,7 @@ TARG=curses
 GOFILES=curses_defs.go
 CGOFILES=curses.go
 
-CGO_LDFLAGS=-lncurses
+CGO_LDFLAGS=-lncurses -ltinfo
 
 # To add flags necessary for locating the library or its include files,
 # set CGO_CFLAGS or CGO_LDFLAGS.  For example, to use an
