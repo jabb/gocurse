@@ -1,18 +1,19 @@
 package panels
 
-// struct _win_st{};
 // #define _Bool int
 // #include <panel.h>
+// #cgo LDFLAGS: -lpanel -lncurses
 import "C"
 
 import (
-	. "curses"
+	. "github.com/errnoh/gocurse/curses"
+	"unsafe"
 )
 
 type Panel C.PANEL
 
 func (panel *Panel) Window() *Window {
-	return (*Window)(C.panel_window((*C.PANEL)(panel)))
+	return (*Window)(unsafe.Pointer((C.panel_window((*C.PANEL)(panel)))))
 }
 
 func UpdatePanels() {
@@ -40,7 +41,7 @@ func (panel *Panel) Bottom() bool {
 }
 
 func NewPanel(win *Window) *Panel {
-	return (*Panel)(C.new_panel((*C.WINDOW)(win)))
+	return (*Panel)(C.new_panel((*C.WINDOW)(unsafe.Pointer((win)))))
 }
 
 func (panel *Panel) Above() *Panel {
@@ -55,11 +56,11 @@ func (panel *Panel) Below() *Panel {
 //extern NCURSES_EXPORT(NCURSES_CONST void*) panel_userptr (const PANEL *);
 
 func (panel *Panel) Move(y, x int) bool {
-	return isOk(C.move_panel((*C.PANEL)(panel),C.int(y),C.int(x)))
+	return isOk(C.move_panel((*C.PANEL)(panel), C.int(y), C.int(x)))
 }
 
 func (panel *Panel) Replace(win *Window) bool {
-	return isOk(C.replace_panel((*C.PANEL)(panel),(*C.WINDOW)(win)))
+	return isOk(C.replace_panel((*C.PANEL)(panel), (*C.WINDOW)(unsafe.Pointer((win)))))
 }
 
 func (panel *Panel) Hidden() bool {

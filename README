@@ -1,0 +1,8 @@
+installable with:
+'go install ./...'
+at root folder
+
+run sample code with:
+'go run sample.go'
+at _example folder
+
