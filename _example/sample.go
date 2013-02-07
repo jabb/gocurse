@@ -3,10 +3,10 @@
 package main
 
 import (
-	. "github.com/errnoh/gocurse/curses"
-	. "github.com/errnoh/gocurse/forms"
-	m "github.com/errnoh/gocurse/menus" // chtype imported in both forms/utils.go and menus/utils.go (and for some reason usage of C.chtype is inconsistent)
-	. "github.com/errnoh/gocurse/panels"
+	. "github.com/jabb/gocurse/curses"
+	. "github.com/jabb/gocurse/forms"
+	m "github.com/jabb/gocurse/menus" // chtype imported in both forms/utils.go and menus/utils.go (and for some reason usage of C.chtype is inconsistent)
+	. "github.com/jabb/gocurse/panels"
 )
 
 var screen *Window
