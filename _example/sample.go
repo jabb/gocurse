@@ -3,10 +3,10 @@
 package main
 
 import (
-	. "github.com/jabb/gocurse/curses"
-	. "github.com/jabb/gocurse/forms"
-	m "github.com/jabb/gocurse/menus" // chtype imported in both forms/utils.go and menus/utils.go (and for some reason usage of C.chtype is inconsistent)
-	. "github.com/jabb/gocurse/panels"
+	. "github.com/mpatraw/gocurse/curses"
+	. "github.com/mpatraw/gocurse/forms"
+	m "github.com/mpatraw/gocurse/menus" // chtype imported in both forms/utils.go and menus/utils.go (and for some reason usage of C.chtype is inconsistent)
+	. "github.com/mpatraw/gocurse/panels"
 )
 
 var screen *Window
@@ -119,7 +119,7 @@ func createMenu() {
 var form *Form
 
 // Test ncurses Form library. Create simple form with two fields.
-// A form is a collection of fields; each field can be either a label(static text) or a data-entry location. The forms also library provides functions to divide forms into multiple pages. 
+// A form is a collection of fields; each field can be either a label(static text) or a data-entry location. The forms also library provides functions to divide forms into multiple pages.
 //    Create fields using NewField(). You can specify the height and width of the field, and its position on the form.
 //    Create the forms with NewForm() by specifying the fields to be attached with.
 //    Post the form with form.Post() and refresh the screen.

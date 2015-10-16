@@ -6,7 +6,7 @@ package menus
 import "C"
 
 import (
-	. "github.com/jabb/gocurse/curses"
+	. "github.com/mpatraw/gocurse/curses"
 	"unsafe"
 )
 
