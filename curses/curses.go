@@ -183,7 +183,7 @@ func (win *Window) Addch(x, y int, c int32, flags int32) {
 func (win *Window) Addstr(x, y int, str string, flags int32, v ...interface{}) {
 	var newstr string
 	if v != nil {
-		newstr = fmt.Sprintf(str, v)
+		newstr = fmt.Sprintf(str, v...)
 	} else {
 		newstr = str
 	}
